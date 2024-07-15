@@ -4,11 +4,9 @@ const lerDados = (callback) => {
     fs.readFile('social.json', 'utf-8', (err, data)=>{
         if(err){
             callback(err);
-        }
-        try{
+        }try{
             callback(null, JSON.parse(data));
-        }
-        catch(error){
+        }catch(error){
             callback(error);
         }
     });
