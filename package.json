@@ -1,0 +1,14 @@
+{
+  "name": "projetosocialize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "social.js",
+  "type":"module",
+  "scripts": {
+    "dev": "nodemon ./social.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
