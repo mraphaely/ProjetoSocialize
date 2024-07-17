@@ -4,14 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 import { URLSearchParams } from "node:url";
 import lerDados from "./helper/socialize.js";
 
-const social = [];
 const PORT = 3333;
 
 //link:https://obsidian-canopy-a33.notion.site/Atividade-04-5e0ecd8c0c48489e9c36cd56dbaaffb5
 const server = createServer((request, response) => {
     const { url, method } = request;
     if (method === "POST" && url === "/usuarios") {//route:01
-        //nome, email, ingredientes e modo de preparo.
+        //nome, email, senha.
         let body = '';
         request.on('data', (chunk) => {
             body += chunk;
@@ -24,30 +23,60 @@ const server = createServer((request, response) => {
                     response.end(JSON.stringify({ message: "Erro ao ler dados" }));
                     return
                 }
-            })
-            // novoUsuario.id = social.length + 1
-            novoUsuario.id = uuidv4();
-            social.push(novoUsuario)
-            fs.writeFile("social.json", JSON.stringify(social, null, 2), (err) => {
-                if (err) {
-                    response.writeHead(500, { "Content-Type": "application/json" });
-                    response.end(JSON.stringify({ message: "Erro ao ler dados" }));
-                    return
-                }
                 if (novoUsuario.Email === social.Email){
                     response.writeHead(401, { "Content-Type": "application/json" });
                     response.end(JSON.stringify({ message: "Esse email está cadastrado." }));
                     return
                 }
+
+            novoUsuario.id = social.length + 1
+            // novoUsuario.id = uuidv4();
+            social.push(novoUsuario)
+            fs.writeFile("sociale.json", JSON.stringify(social, null, 2), (err) => {
+                if (err) {
+                    response.writeHead(500, { "Content-Type": "application/json" });
+                    response.end(JSON.stringify({ message: "Erro interno" }));
+                    return
+                }
                 response.writeHead(201, { "Content-Type": "application/json" })
                 response.end(JSON.stringify({ novoUsuario }));
             })
-
         })
+    })
     } else if (method === "POST" && url === "/perfil") {//route:02
 
     } else if (method === "POST" && url === "/login") {//route:03
-
+      //email, senha.
+      let body = '';
+      request.on('data', (chunk) => {
+          body += chunk;
+      });
+      request.on('end', () => {
+          const usuario = JSON.parse(body)
+          lerDados((err, social) => {
+              if (err) {
+                  response.writeHead(500, { "Content-Type": "application/json" });
+                  response.end(JSON.stringify({ message: "Erro ao ler dados" }));
+                  return
+              }
+              if (usuario.Email === social.Email && usuario.Senha === social.Senha){
+                response.writeHead(200, { "Content-Type": "application/json" });
+                response.end(JSON.stringify({ usuario }));
+                return
+            }
+        
+          social.push(usuario)
+          fs.writeFile("sociale.json", JSON.stringify(social, null, 2), (err) => {
+              if (err) {
+                  response.writeHead(500, { "Content-Type": "application/json" });
+                  response.end(JSON.stringify({ message: "Erro interno" }));
+                  return
+              }
+              response.writeHead(200, { "Content-Type": "application/json" })
+              response.end(JSON.stringify({ usuario }));
+          })
+        })
+      })
     } else if (method === "GET" && url === "/usuarios") {//route:07
         lerDados((err, social) => {
             if (err) {

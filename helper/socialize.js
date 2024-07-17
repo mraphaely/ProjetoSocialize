@@ -1,7 +1,7 @@
 import fs from "node:fs";
 
 const lerDados = (callback) => {
-    fs.readFile('social.json', 'utf-8', (err, data)=>{
+    fs.readFile('sociale.json', 'utf-8', (err, data)=>{
         if(err){
             callback(err);
         }try{
