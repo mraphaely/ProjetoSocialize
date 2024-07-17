@@ -18,7 +18,7 @@ const server = createServer((request, response) => {
         });
         request.on('end', () => {
             const novoUsuario = JSON.parse(body)
-            lerDadosReceita((err, social) => {
+            lerDados((err, social) => {
                 if (err) {
                     response.writeHead(500, { "Content-Type": "application/json" });
                     response.end(JSON.stringify({ message: "Erro ao ler dados" }));
