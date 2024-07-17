@@ -2,7 +2,7 @@ import { createServer, Server } from "node:http";
 import fs from "node:fs";
 import { v4 as uuidv4 } from "uuid";
 import { URLSearchParams } from "node:url";
-import lerDados from "./helper/socialize";
+import lerDados from "./helper/socialize.js";
 
 const social = [];
 const PORT = 3333;

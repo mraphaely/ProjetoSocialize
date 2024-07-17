@@ -5,7 +5,8 @@ const lerDados = (callback) => {
         if(err){
             callback(err);
         }try{
-            callback(null, JSON.parse(data));
+            const social = JSON.parse(data);
+            callback(null, social);
         }catch(error){
             callback(error);
         }
