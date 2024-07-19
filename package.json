@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "formidable": "^3.5.1",
     "node": "^18.20.4",
     "uuid": "^10.0.0"
   },
